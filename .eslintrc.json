@@ -14,7 +14,7 @@
   },
   "plugins": ["react", "react-native"],
   "rules": {
-    "indent": ["error", 4],
+    "react/react-in-jsx-scope": "off",
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"]
