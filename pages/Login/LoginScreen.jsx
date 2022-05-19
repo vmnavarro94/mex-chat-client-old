@@ -66,7 +66,7 @@ const LoginScreen = ({ navigation, route }) => {
     onSubmit: async (values, { resetForm }) => {
       const { email, password } = values
       if (isSignUp) {
-        const callback = () => navigation.navigate('Login', { variant: 'signIn' })
+        const callback = () => navigation.push('Login', { variant: 'signIn' })
         signUp({ email, password, callback })
       } else {
         signIn({ email, password })
