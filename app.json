@@ -27,6 +27,9 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "build": { "babel": { "include": ["@ui-kitten/components"] } }
+    },
+    "extra": {
+      "API_URL": "https://enigmatic-cove-11339.herokuapp.com"
     }
   }
 }

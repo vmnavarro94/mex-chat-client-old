@@ -1,18 +1,25 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Text } from '@ui-kitten/components'
-import { useAsyncStorage } from '../../hooks'
+import { Layout, Text, Button } from '@ui-kitten/components'
+import { useAuth } from '../../context/auth'
 
 const HomeScreen = ({ navigation }) => {
-  const [token] = useAsyncStorage('token')
+  const { user, fetchUserMe, signOut } = useAuth()
 
   useEffect(() => {
-    if (!token) navigation.navigate('Login')
-  }, [])
+    if (!user) {
+      fetchUserMe().then((data) => {
+        if (!(data?.id && data?.email)) {
+          navigation.navigate('Login')
+        }
+      })
+    }
+  }, [user])
 
   return (
     <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text category="h1">HOME</Text>
+      <Button onPress={signOut}>Log out</Button>
     </Layout>
   )
 }

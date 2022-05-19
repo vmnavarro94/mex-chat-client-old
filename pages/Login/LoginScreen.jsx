@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import {
@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { Layout, Input, Button, Icon, Text, useTheme } from '@ui-kitten/components'
+import { useAuth } from '../../context/auth'
 
 const renderSecureIcon = (secureTextEntry, setSecureTextEntry, props) => (
   <TouchableWithoutFeedback onPress={() => setSecureTextEntry(!secureTextEntry)}>
@@ -19,12 +20,12 @@ const renderSecureIcon = (secureTextEntry, setSecureTextEntry, props) => (
 )
 
 const validationSchema = Yup.object({
-  isSignup: Yup.boolean(),
+  isSignUp: Yup.boolean(),
   email: Yup.string().email('Invalid email address').required('Required'),
   password: Yup.string().min(8, 'Must be at least 8 characters long').required('Required'),
   cPassword: Yup.string()
     .min(8, 'Must be at least 8 characters long')
-    .when('isSignup', {
+    .when('isSignUp', {
       is: true,
       then: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -47,23 +48,35 @@ const LoginScreen = ({ navigation, route }) => {
   const [securePassword, setSecurePassword] = useState(true)
   const [secureCPassword, setSecureCPassword] = useState(true)
   const theme = useTheme()
-  const isSignup = variant === 'signup'
+  const { signUp, signIn, user } = useAuth()
+  const isSignUp = variant === 'signUp'
+
+  useEffect(() => {
+    if (user?.token) navigation.navigate('Home')
+  }, [user?.token])
 
   const formik = useFormik({
     initialValues: {
-      isSignup,
+      isSignUp,
       email: '',
       password: '',
       cPassword: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: async (values, { resetForm }) => {
+      const { email, password } = values
+      if (isSignUp) {
+        const callback = () => navigation.navigate('Login', { variant: 'signIn' })
+        signUp({ email, password, callback })
+      } else {
+        signIn({ email, password })
+      }
+      resetForm()
     },
   })
 
   const handleChangeScreen = () => {
-    const variant = isSignup ? 'signin' : 'signup'
+    const variant = isSignUp ? 'signIn' : 'signUp'
     navigation.push('Login', { variant })
   }
 
@@ -104,7 +117,7 @@ const LoginScreen = ({ navigation, route }) => {
               accessoryRight={(props) => renderSecureIcon(securePassword, setSecurePassword, props)}
               style={styles.input}
             />
-            {isSignup && (
+            {isSignUp && (
               <Input
                 size="large"
                 placeholder="Confirm your password"
@@ -125,10 +138,10 @@ const LoginScreen = ({ navigation, route }) => {
           </Layout>
           <Layout style={styles.footer}>
             <Button size="giant" style={{ width: '100%' }} onPress={formik.handleSubmit}>
-              {isSignup ? 'SIGN UP' : 'SIGN IN'}
+              {isSignUp ? 'SIGN UP' : 'SIGN IN'}
             </Button>
             <Button style={{ width: '100%' }} appearance="ghost" onPress={handleChangeScreen}>
-              {isSignup ? 'Already have an account? Sign In' : "Don't have an account? Create one"}
+              {isSignUp ? 'Already have an account? Sign In' : "Don't have an account? Create one"}
             </Button>
           </Layout>
         </Layout>

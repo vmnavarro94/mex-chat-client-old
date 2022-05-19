@@ -16,6 +16,7 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "linebreak-style": ["error", "unix"],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "react/display-name": "off"
   }
 }
