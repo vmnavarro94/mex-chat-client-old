@@ -13,9 +13,12 @@ export const login = async ({ email, password }) => {
   }
 }
 
-export const register = async ({ email, password }) => {
+export const register = async ({ name, email, password }) => {
   try {
-    const res = await axios.post(`${API_URL}/api/v1/users`, { email, password })
+    const res = await axios.post(`${API_URL}/api/v1/profiles`, {
+      name: name,
+      user: { email, password },
+    })
     return res.data
   } catch (error) {
     const { response } = error

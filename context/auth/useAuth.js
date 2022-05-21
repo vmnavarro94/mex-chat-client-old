@@ -11,11 +11,11 @@ const useAuth = () => {
   const [getToken, setToken] = useAsyncStorage('token')
   const { setAlert } = useAlertsContext()
 
-  const signUp = async ({ email, password, callback }) => {
+  const signUp = async ({ name, email, password, callback }) => {
     setLoading(true)
     try {
-      const data = await register({ email, password })
-      setAlert({ type: 'success', text: `${data.email} registered, please login`, show: true })
+      const data = await register({ name, email, password })
+      setAlert({ type: 'success', text: `${data.user.email} registered, please login`, show: true })
       callback && callback()
     } catch (error) {
       if (error.statusCode === 409) {

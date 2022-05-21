@@ -30,7 +30,9 @@ const HomeScreen = ({ navigation }) => {
 }
 
 HomeScreen.propTypes = {
-  navigation: PropTypes.object,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }),
 }
 
 export default HomeScreen
