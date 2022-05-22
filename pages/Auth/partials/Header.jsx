@@ -6,7 +6,7 @@ const Header = ({ style }) => {
   const theme = useTheme()
   return (
     <Layout style={{ ...style, ...styles.header, backgroundColor: theme['color-primary-default'] }}>
-      <Text category="h1" style={styles.text} status="control">
+      <Text category="h1" status="control">
         Mex Chat
       </Text>
     </Layout>
@@ -23,9 +23,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
-  },
-  text: {
-    marginBottom: 20,
   },
 })
 

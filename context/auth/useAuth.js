@@ -31,8 +31,8 @@ const useAuth = () => {
     try {
       const data = await login({ email, password })
       await setToken(data.token)
-      setAlert({ type: 'success', text: `Logged as: ${data.user.email}`, show: true })
-      setUser({ email: data.user.email, token: data.token })
+      setAlert({ type: 'success', text: `Logged as: ${data.profile.email}`, show: true })
+      setUser(data.profile)
       callback && callback()
     } catch (error) {
       const errorMessage =
@@ -54,7 +54,14 @@ const useAuth = () => {
     const { sub } = jwtDecode(token)
     try {
       const data = await getUser({ id: sub, token })
-      setAlert({ type: 'success', text: `Logged as: ${data.email}`, show: true })
+      const {
+        name,
+        profilePhoto,
+        state,
+        user: { email },
+      } = data
+      setUser({ name, profilePhoto, state, email })
+      setAlert({ type: 'success', text: `Logged as: ${data.user.email}`, show: true })
       return data
     } catch (error) {
       console.log(error)

@@ -8,7 +8,7 @@ export const getUser = async ({ id, token }) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     }
-    const res = await axios.get(`${API_URL}/api/v1/users/${id}`, config)
+    const res = await axios.get(`${API_URL}/api/v1/profiles/user/${id}`, config)
     return res.data
   } catch (error) {
     const { response } = error

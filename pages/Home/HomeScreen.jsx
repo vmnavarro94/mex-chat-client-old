@@ -1,24 +1,12 @@
-import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Text, Button } from '@ui-kitten/components'
 import { useAuth } from '../../context/auth'
 
-const HomeScreen = ({ navigation }) => {
-  const { user, fetchUserMe, signOut } = useAuth()
-
-  useEffect(() => {
-    if (!user) {
-      fetchUserMe().then((data) => {
-        if (!(data?.id && data?.email)) {
-          navigation.navigate('Login')
-        }
-      })
-    }
-  }, [user])
+const HomeScreen = () => {
+  const { signOut } = useAuth()
 
   const onSingOut = () => {
     signOut()
-    navigation.navigate('Login')
   }
 
   return (

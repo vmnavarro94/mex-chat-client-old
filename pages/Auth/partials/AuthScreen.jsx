@@ -8,18 +8,10 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import { Layout } from '@ui-kitten/components'
-import { useAuth } from '../../context/auth'
-import { Header, SignUpForm, SignInForm } from './partials'
+import { useAuth } from '../../../context/auth'
+import Header from './Header'
 
-const LoginScreen = ({ navigation, route }) => {
-  const { variant } = route.params
-  const { user } = useAuth()
-  const isSignUp = variant === 'signUp'
-
-  useEffect(() => {
-    if (user?.token) navigation.navigate('Home')
-  }, [user?.token])
-
+const LoginScreen = ({ navigation, children }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -28,11 +20,7 @@ const LoginScreen = ({ navigation, route }) => {
       >
         <Layout style={styles.inner}>
           <Header />
-          {isSignUp ? (
-            <SignUpForm navigation={navigation} />
-          ) : (
-            <SignInForm navigation={navigation} />
-          )}
+          {children}
         </Layout>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -40,10 +28,10 @@ const LoginScreen = ({ navigation, route }) => {
 }
 
 LoginScreen.propTypes = {
-  route: PropTypes.object,
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }),
+  children: PropTypes.node.isRequired,
 }
 
 const styles = StyleSheet.create({
