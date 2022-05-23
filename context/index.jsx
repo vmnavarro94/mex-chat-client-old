@@ -1,4 +1,4 @@
-import { AlertsProvider } from './ui/alertsContext'
+import { AlertsProvider, LoadingScreenProvider } from './ui'
 import AuthProvider from './auth/AuthProvider'
 
 const composeProviders = (...providers) => {
@@ -14,6 +14,6 @@ const composeProviders = (...providers) => {
   )
 }
 
-const providers = [AlertsProvider, AuthProvider]
+const providers = [AlertsProvider, AuthProvider, LoadingScreenProvider]
 
 export const AppContextProvider = composeProviders(...providers)

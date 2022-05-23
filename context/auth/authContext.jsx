@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 const initialValue = {
-  loading: true,
+  loading: false,
   user: null,
   signIn: () => null,
   signOut: () => null,

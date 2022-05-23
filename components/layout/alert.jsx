@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { StyleSheet, Dimensions, Animated } from 'react-native'
 import { Modal, Card, Text } from '@ui-kitten/components'
-import { useAlertsContext } from '../../context/ui/alertsContext'
+import { useAlertsContext } from '../../context/ui'
 
 const windowHeight = Dimensions.get('window').height
 

@@ -3,7 +3,7 @@ import { ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { NavigationContainer } from '@react-navigation/native'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { AppContextProvider } from './context'
-import { Alert } from './components/layout'
+import { Alert, LoadingScreen } from './components/layout'
 import { AppRoutes, AppNavigator } from './navigation'
 
 export default function App() {
@@ -15,6 +15,7 @@ export default function App() {
           <NavigationContainer>
             <AppNavigator initialRouteName={AppRoutes.AUTH} />
           </NavigationContainer>
+          <LoadingScreen />
           <Alert />
         </AppContextProvider>
       </ApplicationProvider>

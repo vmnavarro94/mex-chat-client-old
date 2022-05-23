@@ -29,10 +29,10 @@ const useAuth = () => {
   const signIn = async ({ email, password, callback }) => {
     setLoading(true)
     try {
-      const data = await login({ email, password })
-      await setToken(data.token)
-      setAlert({ type: 'success', text: `Logged as: ${data.profile.email}`, show: true })
-      setUser(data.profile)
+      const { token, profile } = await login({ email, password })
+      await setToken(token)
+      setAlert({ type: 'success', text: `Logged as: ${profile.user.email}`, show: true })
+      setUser(profile)
       callback && callback()
     } catch (error) {
       const errorMessage =
@@ -47,12 +47,13 @@ const useAuth = () => {
   }
 
   const fetchUserMe = async () => {
-    const token = await getToken()
-    if (!token) {
-      return
-    }
-    const { sub } = jwtDecode(token)
+    setLoading(true)
     try {
+      const token = await getToken()
+      if (!token) {
+        return
+      }
+      const { sub } = jwtDecode(token)
       const data = await getUser({ id: sub, token })
       const {
         name,
@@ -65,6 +66,8 @@ const useAuth = () => {
       return data
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
