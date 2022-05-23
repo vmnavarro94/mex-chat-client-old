@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
+      <ApplicationProvider {...eva} theme={eva.dark}>
         <AppContextProvider>
           <NavigationContainer>
             <AppNavigator initialRouteName={AppRoutes.AUTH} />

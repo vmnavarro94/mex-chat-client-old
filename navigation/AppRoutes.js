@@ -3,7 +3,9 @@ const AppRoute = {
   SIGN_IN: 'Sign In',
   SIGN_UP: 'Sign Up',
   HOME: 'Home',
-  PROFILE: 'Profile',
+  CONTACT_LIST: 'Contact List',
+  CHAT_LIST: 'Chat List',
+  SETTINGS: 'Settings',
 }
 
 export default AppRoute
