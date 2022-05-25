@@ -32,7 +32,7 @@ const useAuth = () => {
       const { token, profile } = await login({ email, password })
       await setToken(token)
       setAlert({ type: 'success', text: `Logged as: ${profile.user.email}`, show: true })
-      setUser(profile)
+      setUser({ ...profile, token })
       callback && callback()
     } catch (error) {
       const errorMessage =
@@ -61,7 +61,8 @@ const useAuth = () => {
         state,
         user: { email },
       } = data
-      setUser({ name, profilePhoto, state, email })
+      setUser({ name, profilePhoto, state, email, token })
+      setToken(token)
       setAlert({ type: 'success', text: `Logged as: ${data.user.email}`, show: true })
       return data
     } catch (error) {

@@ -6,26 +6,22 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components'
-import { useAuth } from '../../../context/auth'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />
-const EditIcon = (props) => <Icon {...props} name="edit-2" />
+const AddIcon = (props) => <Icon {...props} name="plus" />
 
 export const Header = () => {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
-  const { signOut } = useAuth()
 
   const renderRightActions = () => (
     <>
-      <TopNavigationAction icon={EditIcon} appearance="control" />
+      <TopNavigationAction icon={AddIcon} appearance="control" />
     </>
   )
 
-  const renderBackAction = () => (
-    <TopNavigationAction icon={BackIcon} appearance="control" onPress={signOut} />
-  )
+  const renderBackAction = () => <TopNavigationAction icon={BackIcon} appearance="control" />
 
   return (
     <Layout
@@ -44,7 +40,7 @@ export const Header = () => {
             status="control"
             style={[props.style, { color: theme['color-primary-100'] }]}
           >
-            Chats
+            Contacts
           </Text>
         )}
         accessoryLeft={renderBackAction}

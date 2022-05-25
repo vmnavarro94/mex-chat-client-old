@@ -44,7 +44,7 @@ const SignUpForm = ({ navigation }) => {
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       const { name, email, password } = values
-      const callback = () => navigation.push('Login', { variant: 'signIn' })
+      const callback = () => navigation.navigate(AppRoutes.SIGN_IN)
       signUp({ name, email, password, callback })
       resetForm()
     },
@@ -123,7 +123,7 @@ const SignUpForm = ({ navigation }) => {
         <Button
           style={{ width: '100%' }}
           appearance="ghost"
-          onPress={() => navigation.push(AppRoutes.SIGN_IN)}
+          onPress={() => navigation.navigate(AppRoutes.SIGN_IN)}
         >
           {'Already have an account? Sign In'}
         </Button>

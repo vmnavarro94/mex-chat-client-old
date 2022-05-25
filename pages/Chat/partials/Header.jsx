@@ -6,25 +6,18 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from '@ui-kitten/components'
-import { useAuth } from '../../../context/auth'
+import PropTypes from 'prop-types'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />
-const EditIcon = (props) => <Icon {...props} name="edit-2" />
 
-export const Header = () => {
+export const Header = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
   const theme = useTheme()
-  const { signOut } = useAuth()
-
-  const renderRightActions = () => (
-    <>
-      <TopNavigationAction icon={EditIcon} appearance="control" />
-    </>
-  )
+  const { title, subTitle } = route.params
 
   const renderBackAction = () => (
-    <TopNavigationAction icon={BackIcon} appearance="control" onPress={signOut} />
+    <TopNavigationAction icon={BackIcon} appearance="control" onPress={() => navigation.goBack()} />
   )
 
   return (
@@ -44,14 +37,23 @@ export const Header = () => {
             status="control"
             style={[props.style, { color: theme['color-primary-100'] }]}
           >
-            Chats
+            {title}
           </Text>
         )}
         accessoryLeft={renderBackAction}
-        accessoryRight={renderRightActions}
       />
     </Layout>
   )
+}
+
+Header.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      title: PropTypes.string,
+      subTitle: PropTypes.string,
+    }).isRequired,
+  }),
 }
 
 export default Header
