@@ -17,7 +17,7 @@ const Alert = () => {
           duration: 500,
           useNativeDriver: true,
         }),
-        Animated.delay(2000),
+        Animated.delay(200),
         Animated.timing(opacity, {
           toValue: 0,
           duration: 500,
@@ -29,7 +29,7 @@ const Alert = () => {
   }, [alert.show])
 
   return (
-    <Modal visible={alert.show} style={styles.container}>
+    <Modal visible={false} style={styles.container}>
       <Animated.View
         style={{
           opacity,
@@ -56,14 +56,6 @@ const styles = StyleSheet.create({
     zIndex: 999,
     width: '100%',
     position: 'absolute',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 24,
     transform: [{ rotate: '180deg' }],
   },
   card: {

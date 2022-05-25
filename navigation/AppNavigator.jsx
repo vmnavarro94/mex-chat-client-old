@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import AuthNavigator from './AuthNavigator'
-import HomeNavigator from './HomeNavigator.jsx'
+import HomeNavigator from './HomeNavigator'
 import AppRoutes from './AppRoutes'
 import { useAuth } from '../context/auth'
 
